@@ -48,11 +48,12 @@ fifo_t infifo;
 void _set_baud(uint16_t baud)
 {
 	uint8_t tifr = 0;
-	
+	cli();
 	OCR1A = (uint16_t) ((uint32_t) F_CPU/baud);
 	tifr  |= (1 << ICF1) | (1 << OCF1B) | (1 << OCF1A);
 	outframe = 0;
 	TIFR = tifr;
+	sei();
 }
 
 
